@@ -1,0 +1,48 @@
+Sorce code Used: 
+
+Used the 'create calculated fields' and 'create parameters' options available in tableau to accomplish the assignment tasks.
+
+Parameters created :
+1. Choose Category  - To allow users to select any of the options (Life Insurance Share, Market Share, Penetration, Ratio of Reinsurance Accepted  or Retention Ratio).
+2. Choose Year - To allow the users to select from the available 'year' in the dropdown.
+
+Calculated Fields :
+
+1. Show Category - To load data from relevant fields based on the option user selects from 'Choose Catgory' dropdown (i.e this calculated field is linked to a paramter).
+CODE/CALCULATION :
+CASE [Choose Category]
+WHEN "Life Insurance Share" THEN [Life insurance share]
+WHEN "Market Share" THEN [Market share > Life]
+WHEN "Penetration" THEN [Penetration > Life]
+WHEN "Ratio of Reinsurance Accepted" THEN [Ratio of reinsurance accepted > Life]
+WHEN "Retention Ratio" THEN [Retention ratio > Life]
+END
+
+2. GROWTH  - To calcualte the growth based on the selected Category and the corresponding values from Selected year Vs its previous year.
+CODE/CALCULATION :
+AVG([CATEGORY(CY)])-AVG([CATEGORY(PY)])
+
+3.GROWTH INDICATOR - Created a symbolic representation to show the growth.
+CODE/CALCULATION:
+IF [GROWTH] >0  THEN "🠕" 
+ELSEIF  [GROWTH]=0  THEN "↔"
+ELSEIF [GROWTH]<0   THEN "🠗"
+ELSEIF [GROWTH]= NULL  THEN "↔"
+END
+
+4.GROWTH INDICATOR COLOUR - Colour representation for the indicator created as mentioned above.
+CODE/CALCULATION:
+IF [GROWTH] >0  THEN "Green" 
+ELSEIF  [GROWTH]=0  THEN "Black"
+ELSEIF [GROWTH]<0   THEN "Red"
+ELSEIF [GROWTH]= NULL  THEN "None"
+END
+
+
+TABLEAU WORKBOOK - (TABLEAU_ASSIGNMENT_1.TBWX DESCRIPTION)
+
+1.Sheet1 - MAP              : Created a geographic map to show the geographic fields.
+2.Sheet2 - KPI TABLE        : Creaed a KPI table to show the calculated Key indicators based on the selcted category and year.
+3.Sheet3 - GROWTH INDICATOR : Created growth indicator shape based on Growth percentage.
+4.Sheet4 - TREND CHART      : Created a trendline to show the selected category values.
+5.DASHBOARD - Dashboard containing all the sheets.
